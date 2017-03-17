@@ -14,47 +14,31 @@
     "Microsoft.Extensions.Configuration.CommandLine": "1.1.0",
     "Microsoft.Extensions.Logging": "1.1.0",
     "Microsoft.Extensions.Logging.Console": "1.1.0",
-    "Microsoft.Extensions.Logging.Debug": "1.1.0"
+    "Microsoft.Extensions.Logging.Debug": "1.1.0",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
+    "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
   },
 
   "tools": {
-    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.1.0-preview4-final"
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final"
   },
 
   "frameworks": {
     "netcoreapp1.1": {
-      "imports": [
-        "dotnet5.6",
-        "portable-net45+win8"
-      ]
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
     }
   },
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
-  },
-
-  "runtimeOptions": {
-    "configProperties": {
-      "System.GC.Server": true
-    }
-  },
-
-  "publishOptions": {
-    "include": [
-      "wwwroot",
-      "**/*.cshtml",
-      "appsettings.json",
-      "web.config"
-    ]
-  },
-
-  "scripts": {
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
-  },
-
-  "tooling": {
-    "defaultNamespace": "BareMetalApi"
+    "preserveCompilationContext": true,
+    "debugType": "portable"
   }
 }
