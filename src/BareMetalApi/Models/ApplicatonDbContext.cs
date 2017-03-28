@@ -1,21 +1,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using BareMetalApi.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace BareMetalApi.Data
+namespace BareMetalApi.Models
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base()
         { }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<DbContext> options) : base(options)
         { }
 
         //object name must be same as table name defined in Migrations
         public DbSet<BlogArticle> BlogArticles{ get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             string dbName = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "localhost";
             string dbUser = Environment.GetEnvironmentVariable("POSTGRES_USER") ?? "postgres";
@@ -24,5 +24,6 @@ namespace BareMetalApi.Data
             builder.UseNpgsql(pgConStr);
             base.OnConfiguring(builder);
         }
+
     }
 }

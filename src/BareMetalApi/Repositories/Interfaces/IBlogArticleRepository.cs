@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BareMetalApi.Data.Entities;
+using BareMetalApi.Models;
 
-namespace BareMetalApi.Data
+namespace BareMetalApi.Repositories.Interfaces
 {
     public interface IBlogArticleRepository
     {

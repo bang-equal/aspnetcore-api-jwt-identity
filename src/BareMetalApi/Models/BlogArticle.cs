@@ -1,4 +1,4 @@
-namespace BareMetalApi.Data.Entities
+namespace BareMetalApi.Models
 {
     public class BlogArticle
     {

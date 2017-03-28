@@ -1,9 +1,8 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using BareMetalApi.Data.Entities;
-using BareMetalApi.Data;
+using BareMetalApi.Models;
 
-namespace BareMetalApi.Data.Extensions
+namespace BareMetalApi.Migrations
 {
     public static class ApplicationDbExtensions
     {

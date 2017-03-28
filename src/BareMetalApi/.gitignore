@@ -14,6 +14,7 @@ bower_components/
 node_modules/
 debugSettings.json
 project.lock.json
+appsettings.json
 *.user
 *.suo
 *.cache

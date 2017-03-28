@@ -17,7 +17,12 @@
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
-    "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
+    "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0",
+    "Microsoft.AspNetCore.Identity": "1.1.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
+    "Microsoft.IdentityModel.Tokens": "5.1.0",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.1"
   },
 
   "tools": {

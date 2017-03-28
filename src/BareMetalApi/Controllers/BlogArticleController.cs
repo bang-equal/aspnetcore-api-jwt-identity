@@ -1,12 +1,14 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using BareMetalApi.Data;
-using BareMetalApi.Data.Entities;
+using BareMetalApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using BareMetalApi.Repositories.Interfaces;
 
 namespace BareMetalApi.Controllers
 {
     [Route("blog/[controller]")]
+    [Authorize("Bearer")]
     public class BlogArticleController : ControllerBase
     {
         private readonly IBlogArticleRepository _repository;
@@ -26,9 +28,9 @@ namespace BareMetalApi.Controllers
 
         // GET blog/blogarticle/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok( _repository.GetById(id).Result);
         }
 
         // POST blog/blogarticle
