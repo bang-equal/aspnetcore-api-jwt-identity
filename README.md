@@ -2,9 +2,9 @@
 
 ### WHAT
 
-ASP.Net Core JSON API that is lightweight and cross platform. CRUD to your PostgreSQL database out of the box thanks to [Npgsql](http://www.npgsql.org/) driver and EF Core dependency injection.  Includes data migration script that runs on startup and seeds initial data. Get started right away!
+A lightweight and cross platform ASP.Net Core JSON API. CRUD to your PostgreSQL database out of the box thanks to [Npgsql](http://www.npgsql.org/) driver and EF Core dependency injection.  Includes data migration script that runs on startup and seeds initial data. Get started right away!
 
-Security by [ASP.Net Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity) claims based authentication system that is token based, JWT.
+Data security using tokens,JWT, and [ASP.Net Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity), claims based authentication.
 
 
 ### HOW
