@@ -23,7 +23,12 @@ This project borrows heavily from the following repos:
 
 1. Install .NET Core  (https://www.microsoft.com/net/core)
 2. Install PostgreSQL (https://www.postgresql.org/)
-3. Update lines 22 and 23 in the file [Models/ApplicationDbContext.cs](https://github.com/hatoro/BareMetalApi/blob/master/src/BareMetalApi/Models/ApplicatonDbContext.cs) with your PostgreSQL user name and password
+3. Add a appsettings.json file to /src/BareMetalApi, which will define your db connection string.<br/>
+   * `{` <br/>
+         `"ConnectionStrings": {` <br/>
+            `"DefaultConnection": "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=Blog;Pooling=true;"` <br/>
+            `}` <br/>
+    `}` <br/>
 
 **To run application**
 
