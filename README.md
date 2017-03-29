@@ -15,7 +15,7 @@ This project borrows heavily from the following repos:
    
 1. [ToDoApi](https://github.com/aspnet/Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample/ToDoApi)  blog post [here](https://docs.microsoft.com/en-us/aspnet/core/mobile/native-mobile-backend)
    
-2. [BareMetalApi](https://github.com/benfoster/BareMetalApi)  blog post [here](http://benfoster.io/blog/bare-metal-apis-with-aspnet-core-mvc)
+2. [SimpleTokenProvider](https://github.com/nbarbettini/SimpleTokenProvider)  blog post [here](https://stormpath.com/blog/token-authentication-asp-net-core)
 
 3. [ASPNetCoreAngular2YoExample](https://github.com/osya/ASPNetCoreAngular2YoExample)  
 
@@ -25,15 +25,27 @@ This project borrows heavily from the following repos:
 2. Install PostgreSQL (https://www.postgresql.org/)
 3. Update lines 22 and 23 in the file [Models/ApplicationDbContext.cs](https://github.com/hatoro/BareMetalApi/blob/master/src/BareMetalApi/Models/ApplicatonDbContext.cs) with your PostgreSQL user name and password
 
-To run application
+**To run application**
 
 1. Download repository
 2. Open command prompt and navigate to /src/BareMetalApi
 3. Run command "dotnet restore"
    * Please create new [issue](https://github.com/hatoro/BareMetalApi/issues/new?title=Restore_Issue&assignee=hatoro&body=My%20Platform:______%20<br/>%20Operating%20System:_______%20<br/>%20DotNet%20Core%20Version:_____) if you are having trouble downloading dependencies
 4. Run command "dotnet run"
-5. Use Postman to send JSON GET, POST, PUT, and DELETE requests.
-   * `GET http://localhost:5000/blog/blogarticle`<br/>
+   * App will compile then run, wait for message `Application started. Press Ctrl+C to shut down.`
+5. First Register a User: Use Postman to send a POST request in order to register your first user.
+    * `POST http://localhost:5000/blog/account/register`<br/>
+      `{"Email" : "YourName@ok.com", "PasswordHash" : "Abc!"}`
+6. Get Security Token: Use Postman to login your user.
+   * `POST http://localhost:5000/blog/account/login`<br/>
+      `Body`<br/>
+      `x-www-form-urlencoded`<br/>
+      `Email`  `YourName@ok.com`<br/>
+      `Password`  `Abc123!`<br/>
+7. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
+   * `GET http://localhost:5000/blog/blogarticle`
+      `Headers`<br/>
+      `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       {<br/>
        "Id": 1, <br/>
        "ArticleTitle": "How to Dabb", <br/>
@@ -61,6 +73,8 @@ To run application
       } <br/>
       <br/>
     * `GET http://localhost:5000/blog/blogarticle/3` <br/>
+      `Headers`<br/>
+      `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       { <br/>
       "Id": 3, <br/>
       "ArticleTitle": "How to Nae Nae", <br/>
