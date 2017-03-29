@@ -43,7 +43,7 @@ This project borrows heavily from the following repos:
       `Email`  `YourName@ok.com`<br/>
       `Password`  `Abc123!`<br/>
 7. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
-   * `GET http://localhost:5000/blog/blogarticle`
+   * `GET http://localhost:5000/blog/blogarticle`<br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       {<br/>
