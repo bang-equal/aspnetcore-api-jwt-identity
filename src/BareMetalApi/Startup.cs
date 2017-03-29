@@ -20,7 +20,7 @@ namespace BareMetalApi
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), @"src\BareMetalApi"))
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -34,7 +34,9 @@ namespace BareMetalApi
         {
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
-            services.AddDbContext<ApplicationDbContext>();
+            //Gets connection string from appsettings.json
+            services.AddDbContext<ApplicationDbContext>(
+                opts => opts.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -60,7 +62,7 @@ namespace BareMetalApi
             //Identity
             app.UseIdentity();
 
-            //Authentication
+            //JWT
             ConfigureAuth(app);
 
             app.UseMvc();
