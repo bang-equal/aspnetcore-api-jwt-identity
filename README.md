@@ -1,10 +1,12 @@
-# BareMetalApi
+# BareMetalApi Heroku_Deploy
 
 ### WHAT
 
 A lightweight and cross platform ASP.Net Core JSON API. CRUD to your PostgreSQL database out of the box thanks to [Npgsql](http://www.npgsql.org/) driver and EF Core dependency injection.  Includes data migration script that runs on startup and seeds initial data. Get started right away!
 
 Data security using tokens,JWT, and [ASP.Net Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity), claims based authentication.
+
+Hosted for free on Heroku with additional free Postgres database add-on.
 
 
 ### HOW
@@ -19,36 +21,26 @@ This project borrows heavily from the following repos:
 
 3. [ASPNetCoreAngular2YoExample](https://github.com/osya/ASPNetCoreAngular2YoExample)  
 
-**Prerequisites**
-
-1. Install .NET Core  (https://www.microsoft.com/net/core)
-2. Install PostgreSQL (https://www.postgresql.org/)
-3. Add an appsettings.json file to /src/BareMetalApi, which will define your db connection string.<br/>
-   * `{` <br/>
-         `"ConnectionStrings": {` <br/>
-            `"DefaultConnection": "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=Blog;Pooling=true;"` <br/>
-            `}` <br/>
-    `}` <br/>
-
 **To run application**
 
-1. Download repository
-2. Open command prompt and navigate to /src/BareMetalApi
-3. Run command "dotnet restore"
-   * Please create new [issue](https://github.com/hatoro/BareMetalApi/issues/new?title=Restore_Issue&assignee=hatoro&body=My%20Platform:______%20<br/>%20Operating%20System:_______%20<br/>%20DotNet%20Core%20Version:_____) if you are having trouble downloading dependencies
-4. Run command "dotnet run"
-   * App will compile then run, wait for message `Application started. Press Ctrl+C to shut down.`
-5. First Register a User: Use Postman to send a POST request in order to register your first user.
-    * `POST http://localhost:5000/blog/account/register`<br/>
-      `{"Email" : "YourName@ok.com", "PasswordHash" : "Abc!"}`
-6. Get Security Token: Use Postman to login your user.
-   * `POST http://localhost:5000/blog/account/login`<br/>
+1. Fork repo
+1. Create Heroku account
+2. New Heroku app
+3. Resources => Add-on Heroku Postgres
+4. Settings => Buildpacks => Add buildpack https://github.com/se/heroku-core
+5. Deploy => GitHub (Connect to your forked repo)
+6. Deploy => Manual deploy => Deploy Branch
+
+**To use application**
+
+6. Get Security Token: Use Postman to login a user.
+   * `POST http://bangequal-server.herokuapp.com/blog/account/login`<br/>
       `Body`<br/>
       `x-www-form-urlencoded`<br/>
-      `Email`  `YourName@ok.com`<br/>
+      `Email`  `larry@ok.com`<br/>
       `Password`  `Abc123!`<br/>
 7. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
-   * `GET http://localhost:5000/blog/blogarticle`<br/>
+   * `GET http://bangequal-server.herokuapp.com/blog/blogarticle`<br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       {<br/>
@@ -77,7 +69,7 @@ This project borrows heavily from the following repos:
       "ArticleContent": "Worm your upper body..." <br/>
       } <br/>
       <br/>
-    * `GET http://localhost:5000/blog/blogarticle/3` <br/>
+    * `GET http://bangequal-server.herokuapp.com/blog/blogarticle/3` <br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       { <br/>
