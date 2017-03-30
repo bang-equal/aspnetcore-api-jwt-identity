@@ -33,13 +33,16 @@ This project borrows heavily from the following repos:
 
 **To use application**
 
-6. Get Security Token: Use Postman to login a user.
+>Live preview on Heroku now
+>Send requests to http://bangequal-server.herokuapp.com
+
+1. Get Security Token: Use Postman to login a user.
    * `POST http://bangequal-server.herokuapp.com/blog/account/login`<br/>
       `Body`<br/>
       `x-www-form-urlencoded`<br/>
       `Email`  `larry@ok.com`<br/>
       `Password`  `Abc123!`<br/>
-7. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
+2. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
    * `GET http://bangequal-server.herokuapp.com/blog/blogarticle`<br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
