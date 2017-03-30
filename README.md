@@ -33,8 +33,7 @@ This project borrows heavily from the following repos:
 
 **To use application**
 
->Live preview on Heroku now
->Send requests to http://bangequal-server.herokuapp.com
+>Live preview on Heroku, send requests to http://bangequal-server.herokuapp.com
 
 1. Get Security Token: Use Postman to login a user.
    * `POST http://bangequal-server.herokuapp.com/blog/account/login`<br/>
