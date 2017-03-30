@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,7 @@ namespace BareMetalApi
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), @"src\BareMetalApi"))
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -35,8 +36,17 @@ namespace BareMetalApi
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
             //Gets connection string from appsettings.json
+            string x = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string[] substrings = x.Split(':');
+            string user = substrings[1].Substring(2);
+            string database = substrings[substrings.Length - 1].Substring(5);
+            string [] substrings2 = substrings[2].Split('@');
+            string password = substrings2[0];
+            string host = substrings2[1];
+            string y = $"User ID={user};Password={password};Host={host};Port=5432;Database={database};Pooling=true";
+            Console.WriteLine(y);
             services.AddDbContext<ApplicationDbContext>(
-                opts => opts.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                opts => opts.UseNpgsql(y));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -54,7 +64,7 @@ namespace BareMetalApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
             loggerFactory.AddConsole();
             //loggerFactory.AddDebug();
@@ -70,9 +80,9 @@ namespace BareMetalApi
             //Create DB on startup
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                 context.Database.Migrate();
-                 context.EnsureSeedData();
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                context.Database.Migrate();
+                context.EnsureSeedData();
             }
         }
     }

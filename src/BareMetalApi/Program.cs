@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 
 namespace BareMetalApi
 {
@@ -8,16 +10,21 @@ namespace BareMetalApi
     {
         public static void Main(string[] args)
         {
-            //var config = new ConfigurationBuilder()
-                //.AddCommandLine(args)
-                //.AddEnvironmentVariables(prefix: "ASPNETCORE_")
-                //.Build();
+            var url = $"http://bangequal-server:{Environment.GetEnvironmentVariable("PORT")}/";
+
+            Console.WriteLine($"Using Url: {url}");
+
+            var config = new ConfigurationBuilder()
+                .AddCommandLine(args)
+                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
+                .Build();
 
             var host = new WebHostBuilder()
                 //.UseConfiguration(config)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
+                .UseUrls(url)
                 .Build();
 
             host.Run();

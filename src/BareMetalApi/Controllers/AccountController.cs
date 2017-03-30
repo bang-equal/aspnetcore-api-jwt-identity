@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BareMetalApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace BareMetalApi.Controllers
@@ -75,6 +76,11 @@ namespace BareMetalApi.Controllers
         public async Task<dynamic> Register([FromBody] ApplicationUser model)
         {              
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.Claims.Add( new IdentityUserClaim<string>
+                    {
+                        ClaimType="external",
+                        ClaimValue= "true"
+                    });
                 var result = await _userManager.CreateAsync(user, model.PasswordHash);
                 if (result.Succeeded)
                 {

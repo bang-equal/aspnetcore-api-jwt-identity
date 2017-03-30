@@ -67,15 +67,13 @@ namespace BareMetalApi
 
         private static async Task<ClaimsIdentity> GetIdentity(UserManager<ApplicationUser> userManager, string email, string password)
         {
-            //Get exception here when trying to add connection string to DbContext in Startup
-            //exception becuse usermanager is null when it is sent by delegate
-            //originally I found this to be a problem with Identity sharing database with model data
             var user = await userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return null;
             }
             var result = await userManager.CheckPasswordAsync(user, password);
+            var claims = userManager.GetClaimsAsync(user);
             //Need to return a real identity with real claims
             return result ? new ClaimsIdentity(new GenericIdentity(email, "Token"), new[] { new Claim("user_name", user.UserName), new Claim("user_id", user.Id) }) : null;
         }
