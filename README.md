@@ -23,7 +23,7 @@ This project borrows heavily from the following repos:
 
 **To run application**
 
-1. Fork repo
+1. Fork repo branch
 1. Create Heroku account
 2. New Heroku app
 3. Resources => Add-on Heroku Postgres
