@@ -1,5 +1,7 @@
 # BareMetalApi
 
+> Live example running on Heroku right now. Check out Heroku_Deploy branch for more details
+
 ### WHAT
 
 A lightweight and cross platform ASP.Net Core JSON API. CRUD to your PostgreSQL database out of the box thanks to [Npgsql](http://www.npgsql.org/) driver and EF Core dependency injection.  Includes data migration script that runs on startup and seeds initial data. Get started right away!
