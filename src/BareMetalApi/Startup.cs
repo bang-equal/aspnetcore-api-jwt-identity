@@ -71,7 +71,7 @@ namespace BareMetalApi
                             .RequireAuthenticatedUser().Build());
                     })
                 .AddJsonFormatters()
-                .AddCors()
+                .AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
