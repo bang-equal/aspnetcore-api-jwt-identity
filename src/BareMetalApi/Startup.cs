@@ -70,8 +70,8 @@ namespace BareMetalApi
                             .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                             .RequireAuthenticatedUser().Build());
                     })
-                .AddJsonFormatters();
-                .AddCors();
+                .AddJsonFormatters()
+                .AddCors()
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
