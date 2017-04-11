@@ -6,6 +6,7 @@
     },
     "Microsoft.AspNetCore.Mvc.Core": "1.1.0",
     "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.1.0",
+    "Microsoft.AspNetCore.Mvc.Cors":  "1.1.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
@@ -23,8 +24,7 @@
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
     "Microsoft.IdentityModel.Tokens": "5.1.0",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
-    "Microsoft.AspNetCore.Diagnostics": "1.1.1",
-    "Microsoft.AspNetCore.Cors":  "1.1.1"
+    "Microsoft.AspNetCore.Diagnostics": "1.1.1"
   },
 
   "tools": {
