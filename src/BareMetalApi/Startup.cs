@@ -51,6 +51,16 @@ namespace BareMetalApi
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
+            
+             // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials() );
+            });
 
             services.AddMvcCore()
                 .AddAuthorization(auth =>
@@ -60,7 +70,8 @@ namespace BareMetalApi
                             .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                             .RequireAuthenticatedUser().Build());
                     })
-                .AddJsonFormatters();            
+                .AddJsonFormatters();
+                .AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +85,9 @@ namespace BareMetalApi
 
             //JWT
             ConfigureAuth(app);
+            
+            // CORS global policy (https://weblog.west-wind.com/posts/2016/Sep/26/ASPNET-Core-and-CORS-Gotchas)
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
 
