@@ -8,7 +8,7 @@ using BareMetalApi.Repositories.Interfaces;
 namespace BareMetalApi.Controllers
 {
     [Route("blog/[controller]")]
-    [Authorize("Bearer")]
+    [Authorize(Policy = "Bearer")]
     public class BlogArticleController : ControllerBase
     {
         private readonly IBlogArticleRepository _repository;

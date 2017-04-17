@@ -1,22 +1,25 @@
+using System;
 using System.IO;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using BareMetalApi.Models;
 using BareMetalApi.Repositories;
 using BareMetalApi.Migrations;
 using BareMetalApi.Repositories.Interfaces;
+using BareMetalApi.Security;
 
 namespace BareMetalApi
 {
     public partial class Startup
-    {
+    {      
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -32,6 +35,13 @@ namespace BareMetalApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+
+            services.Configure<TokenAuthOption>(options =>
+            {
+                options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Security:secret_key"])), SecurityAlgorithms.HmacSha256Signature);
+            });
+
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
             //Gets connection string from appsettings.json
@@ -43,12 +53,13 @@ namespace BareMetalApi
                     .AddDefaultTokenProviders();
 
             services.AddMvcCore()
-                .AddAuthorization(auth =>
+                .AddAuthorization(options =>
                     {
-                        // Enable the use of an [Authorize("Bearer")] attribute on methods and classes to protect.
-                        auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                            .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-                            .RequireAuthenticatedUser().Build());
+                        options.AddPolicy("Bearer", policy => {
+                            policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​);
+                            policy.RequireClaim("external", "true");
+                            policy.RequireAuthenticatedUser().Build();
+                            }); 
                     })
                 .AddJsonFormatters();            
         }
@@ -62,8 +73,28 @@ namespace BareMetalApi
             //Identity
             app.UseIdentity();
 
-            //JWT
-            ConfigureAuth(app);
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    //When this line commented, got invalid token audience error
+                    ValidAudience = "MyAudience",
+                    ValidIssuer = "MyIssuer",
+                    // When receiving a token, check that we've signed it.
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Security:secret_key"])),
+                    // When receiving a token, check that it is still valid.
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    // This defines the maximum allowable clock skew - i.e. provides a tolerance on the token expiry time 
+                    // when validating the lifetime. As we're creating the tokens locally and validating them on the same 
+                    // machines which should have synchronised time, this can be set to zero. Where external tokens are
+                    // used, some leeway here could be useful.
+                    ClockSkew = TimeSpan.FromMinutes(0)
+                }
+            });
 
             app.UseMvc();
 
