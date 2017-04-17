@@ -17,9 +17,7 @@ This project borrows heavily from the following repos:
    
 1. [ToDoApi](https://github.com/aspnet/Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample/ToDoApi)  blog post [here](https://docs.microsoft.com/en-us/aspnet/core/mobile/native-mobile-backend)
    
-2. [SimpleTokenProvider](https://github.com/nbarbettini/SimpleTokenProvider)  blog post [here](https://stormpath.com/blog/token-authentication-asp-net-core)
-
-3. [ASPNetCoreAngular2YoExample](https://github.com/osya/ASPNetCoreAngular2YoExample)  
+2. [ASPNETcoreAngularJWT](https://github.com/Longfld/ASPNETcoreAngularJWT)  
 
 **Prerequisites**
 
