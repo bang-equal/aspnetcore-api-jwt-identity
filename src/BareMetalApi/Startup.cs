@@ -41,6 +41,19 @@ namespace BareMetalApi
             {
                 options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Security:secret_key"])), SecurityAlgorithms.HmacSha256Signature);
             });
+            
+            //Gets connection string from appsettings.json
+            string url = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string[] substrings = url.Split(':');
+            string user = substrings[1].Substring(2);
+            string database = substrings[substrings.Length - 1].Substring(5);
+            string [] substrings2 = substrings[2].Split('@');
+            string password = substrings2[0];
+            string host = substrings2[1];
+            string connstr = $"User ID={user};Password={password};Host={host};Port=5432;Database={database};Pooling=true";
+            
+            services.AddDbContext<ApplicationDbContext>(
+                opts => opts.UseNpgsql(connstr));
 
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
