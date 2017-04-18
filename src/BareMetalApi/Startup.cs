@@ -36,12 +36,7 @@ namespace BareMetalApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-
-            services.Configure<TokenAuthOption>(options =>
-            {
-                options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"))), SecurityAlgorithms.HmacSha256Signature);
-            });
-            
+  
             //Gets connection string from appsettings.json
             string url = Environment.GetEnvironmentVariable("DATABASE_URL");
             string[] substrings = url.Split(':');
@@ -54,12 +49,27 @@ namespace BareMetalApi
             
             services.AddDbContext<ApplicationDbContext>(
                 opts => opts.UseNpgsql(connstr));
+            
+            services.Configure<TokenAuthOption>(options =>
+            {
+                options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"))), SecurityAlgorithms.HmacSha256Signature);
+            });
 
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
+            
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials() );
+            });
 
             services.AddMvcCore()
                 .AddAuthorization(options =>
@@ -70,7 +80,8 @@ namespace BareMetalApi
                             policy.RequireAuthenticatedUser().Build();
                             }); 
                     })
-                .AddJsonFormatters();            
+                .AddJsonFormatters();
+                .AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +115,9 @@ namespace BareMetalApi
                     ClockSkew = TimeSpan.FromMinutes(0)
                 }
             });
+            
+             // CORS global policy (https://weblog.west-wind.com/posts/2016/Sep/26/ASPNET-Core-and-CORS-Gotchas)
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
 
