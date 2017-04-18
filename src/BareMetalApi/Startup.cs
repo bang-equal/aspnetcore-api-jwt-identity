@@ -39,7 +39,7 @@ namespace BareMetalApi
 
             services.Configure<TokenAuthOption>(options =>
             {
-                options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Security:secret_key"])), SecurityAlgorithms.HmacSha256Signature);
+                options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"))), SecurityAlgorithms.HmacSha256Signature);
             });
             
             //Gets connection string from appsettings.json
@@ -97,7 +97,7 @@ namespace BareMetalApi
                     ValidIssuer = "MyIssuer",
                     // When receiving a token, check that we've signed it.
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Security:secret_key"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"))),
                     // When receiving a token, check that it is still valid.
                     RequireExpirationTime = true,
                     ValidateLifetime = true,
