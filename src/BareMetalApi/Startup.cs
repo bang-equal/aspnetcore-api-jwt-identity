@@ -80,7 +80,7 @@ namespace BareMetalApi
                             policy.RequireAuthenticatedUser().Build();
                             }); 
                     })
-                .AddJsonFormatters();
+                .AddJsonFormatters()
                 .AddCors();
         }
 
