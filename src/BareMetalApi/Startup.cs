@@ -57,10 +57,6 @@ namespace BareMetalApi
 
             services.AddSingleton<IBlogArticleRepository, BlogArticleRepository>();
 
-            //Gets connection string from appsettings.json
-            services.AddDbContext<ApplicationDbContext>(
-                opts => opts.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
