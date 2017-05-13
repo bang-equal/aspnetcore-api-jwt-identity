@@ -33,16 +33,16 @@ This project borrows heavily from the following repos:
 
 **To use application**
 
->Live preview on Heroku, send requests to http://bangequal-server.herokuapp.com
+>Live preview on Heroku, send requests to https://aspnetcore-api-jwt-identity.herokuapp.com/
 
 1. Get Security Token: Use Postman to login a user.
-   * `POST http://bangequal-server.herokuapp.com/blog/account/login`<br/>
+   * `POST https://aspnetcore-api-jwt-identity.herokuapp.com/blog/account/login`<br/>
       `Body`<br/>
       `x-www-form-urlencoded`<br/>
       `Email`  `larry@ok.com`<br/>
       `Password`  `Abc123!`<br/>
 2. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.<br/>
-   * `GET http://bangequal-server.herokuapp.com/blog/blogarticle`<br/>
+   * `GET https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle`<br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       {<br/>
@@ -71,7 +71,7 @@ This project borrows heavily from the following repos:
       "ArticleContent": "Worm your upper body..." <br/>
       } <br/>
       <br/>
-    * `GET http://bangequal-server.herokuapp.com/blog/blogarticle/3` <br/>
+    * `GET https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle/3` <br/>
       `Headers`<br/>
       `Authorization`   `Bearer eyJhbGc...FULL TOKEN...RrXfOA`<br/>
       { <br/>
@@ -80,10 +80,10 @@ This project borrows heavily from the following repos:
       "ArticleContent": "Add a connecting move..." <br/>
       } <br/>
       <br/>
-    * `POST http://localhost:5000/blog/blogarticle` <br/>
+    * `POST https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle` <br/>
       `{"ArticleTitle":"How to Running Man","ArticleContent":"Lift your right foot and..."}` <br/>
       <br/>
-    * `PUT http://localhost:5000/blog/blogarticle/4` <br/>
+    * `PUT https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle/4` <br/>
        `{"ArticleTitle":"How to Moonwalk","ArticleContent":"Place one foot directly..."}` <br/>
        <br/>
     * `DELETE http://localhost:5000/blog/blogarticle/5`
