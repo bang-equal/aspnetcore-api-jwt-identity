@@ -27,7 +27,7 @@ This project borrows heavily from the following repos:
 1. Create Heroku account
 2. New Heroku app
 3. Resources => Add-on Heroku Postgres
-4. Settings => Buildpacks => Add buildpack https://github.com/se/heroku-core
+4. Settings => Buildpacks => Add buildpack https://github.com/hatoro/heroku-core
 5. Deploy => GitHub (Connect to your forked repo)
 6. Deploy => Manual deploy => Deploy Branch
 
@@ -86,5 +86,5 @@ This project borrows heavily from the following repos:
     * `PUT https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle/4` <br/>
        `{"ArticleTitle":"How to Moonwalk","ArticleContent":"Place one foot directly..."}` <br/>
        <br/>
-    * `DELETE http://localhost:5000/blog/blogarticle/5`
+    * `DELETE https://aspnetcore-api-jwt-identity.herokuapp.com/blog/blogarticle/5`
 
