@@ -28,6 +28,8 @@ This project borrows heavily from the following repos:
 2. New Heroku app
 3. Resources => Add-on Heroku Postgres
 4. Settings => Buildpacks => Add buildpack https://github.com/hatoro/heroku-core
+***Heroku has upgraded their dynos and has caused the buildpack to crash
+**Please see open issue for workaround
 5. Deploy => GitHub (Connect to your forked repo)
 6. Deploy => Manual deploy => Deploy Branch
 
